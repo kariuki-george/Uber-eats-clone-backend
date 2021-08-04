@@ -7,7 +7,7 @@ const register = async (req, res, next) => {
     password: password,
     username: username,
   });
-  console.log(newRestaurant);
+
   try {
     await newRestaurant.save();
 

@@ -18,12 +18,12 @@ router.get("/orders", allOrders, (req, res) => {});
 
 //menu routes
 router.post("/addFood", newFood, (req, res) => {
-  res.sendStatus(201);
+  res.status(201).json("Created successfully");
 });
 router.delete("/deleteFood", deleteFood, (req, res) => {
   res.sendStatus(200);
 });
-router.get("/getFood", getFood, (req, res) => {});
+router.post("/getFood", getFood, (req, res) => {});
 router.put("/updateFood", updateFood, (req, res) => {});
 router.get("/getOneFood", getOneFood, (req, res) => {});
 

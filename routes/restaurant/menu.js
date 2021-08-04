@@ -1,12 +1,13 @@
 const Food = require("../../models/Food");
 
 const newFood = async (req, res, next) => {
-  const { name, price, restaurant_id } = req.body;
+  const { name, price, restaurant_id, img_url } = req.body;
   try {
     const newfood = new Food({
       name,
       price,
       restaurant_id,
+      img_url,
     });
     await newfood.save();
     next();
@@ -27,9 +28,10 @@ const deleteFood = async (req, res, next) => {
 
 const getFood = async (req, res, next) => {
   const id = req.body.restaurant_id;
+
   try {
     const list = await Food.find({ restaurant_id: id });
-    res.json(list);
+    res.json(list.reverse());
     next();
   } catch (error) {
     res.json(error);
@@ -45,7 +47,7 @@ const updateFood = async (req, res, next) => {
       { name, price },
       { new: true }
     );
-    res.json(updatedFood);
+    res.json("update successful");
     next();
   } catch (error) {}
 };
