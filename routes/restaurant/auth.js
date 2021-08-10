@@ -12,8 +12,9 @@ const register = async (req, res, next) => {
     await newRestaurant.save();
 
     next();
-  } catch (error) {
-    return res.status(500).json(error);
+  } catch (err) {
+    const error = err.keyValue;
+    return res.json(error);
   }
 };
 
@@ -28,7 +29,7 @@ const login = async (req, res, next) => {
     req.user = restaurant;
     next();
   } catch (error) {
-    return res.status(500).json(error);
+    return res.json("error");
   }
 };
 
