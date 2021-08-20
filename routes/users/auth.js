@@ -1,11 +1,12 @@
 const User = require("../../models/User");
 
 const register = async (req, res, next) => {
-  const { email, password, username } = req.body;
+  const { email, password, name } = req.body;
+
   const newRestaurant = new User({
     email: email,
     password: password,
-    username: username,
+    username: name,
   });
 
   try {
@@ -14,6 +15,7 @@ const register = async (req, res, next) => {
     next();
   } catch (err) {
     const error = err.keyValue;
+    console.log(error);
     return res.json(error);
   }
 };

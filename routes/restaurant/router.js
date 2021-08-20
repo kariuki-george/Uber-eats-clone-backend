@@ -8,6 +8,7 @@ const {
   updateFood,
   getOneFood,
 } = require("./menu");
+const {getRestaurants,getRestaurant } = require('./restaurants')
 
 //Authentication
 router.post("/register", register, (req, res) => res.json("hello"));
@@ -25,7 +26,11 @@ router.delete("/deleteFood", deleteFood, (req, res) => {
 });
 router.post("/getFood", getFood, (req, res) => {});
 router.put("/updateFood", updateFood, (req, res) => {});
-router.get("/getOneFood", getOneFood, (req, res) => {});
+router.get("/getOneFood", getOneFood, (req, res) => { });
+
+//restaurants
+router.get("/getRestaurants", getRestaurants, (req,res) => { });
+router.post("/getRestaurant", getRestaurant, (req, res) => { })
 
 //tests
 router.post("/addOrder", addOrder, (req, res) => {
