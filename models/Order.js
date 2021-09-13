@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+
 const Restaurant = require("./Restaurant");
 
 const OrderSchema = mongoose.Schema(
@@ -8,13 +9,13 @@ const OrderSchema = mongoose.Schema(
       required: true,
     },
     buyer_email: {
-      type: "string",
+      type: "String",
       required: true,
     },
     food_name: {
       type: "String",
       required: true,
-      unique: true,
+      unique: false,
     },
     food_amount: {
       type: "String",
@@ -22,7 +23,6 @@ const OrderSchema = mongoose.Schema(
     food_id: {
       type: "String",
       required: true,
-      unique: true,
     },
     food_price: {
       type: "String",
@@ -61,6 +61,8 @@ const OrderSchema = mongoose.Schema(
     delivery_options: {
       type: "String",
     },
+    transit: { type: Boolean },
+    cancelled: { type: Boolean },
   },
   { timestamps: true }
 );

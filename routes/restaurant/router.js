@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const { register, login } = require("./auth");
-const { allOrders, addOrder } = require("./orders");
+const { allOrders, addOrder, updateOrder } = require("./orders");
 const {
   newFood,
   deleteFood,
@@ -8,33 +8,26 @@ const {
   updateFood,
   getOneFood,
 } = require("./menu");
-const {getRestaurants,getRestaurant } = require('./restaurants')
+const { getRestaurants, getRestaurant } = require("./restaurants");
 
 //Authentication
 router.post("/register", register, (req, res) => res.json("hello"));
 router.post("/login", login, (req, res) => res.json(req.user));
 
 //order routes
-router.get("/orders", allOrders, (req, res) => {});
+router.post("/orders", allOrders, (req, res) => {});
+router.post("/addOrder", addOrder, (req, res) => {});
+router.post("/updateOrder", addOrder, (req, res) => {});
 
 //menu routes
-router.post("/addFood", newFood, (req, res) => {
-  res.status(201).json("Created successfully");
-});
-router.delete("/deleteFood", deleteFood, (req, res) => {
-  res.sendStatus(200);
-});
+router.post("/addFood", newFood, (req, res) => {});
+router.post("/deleteFood", deleteFood, (req, res) => {});
 router.post("/getFood", getFood, (req, res) => {});
 router.put("/updateFood", updateFood, (req, res) => {});
-router.get("/getOneFood", getOneFood, (req, res) => { });
+router.get("/getOneFood", getOneFood, (req, res) => {});
 
 //restaurants
-router.get("/getRestaurants", getRestaurants, (req,res) => { });
-router.post("/getRestaurant", getRestaurant, (req, res) => { })
-
-//tests
-router.post("/addOrder", addOrder, (req, res) => {
-  res.sendStatus(200);
-});
+router.get("/getRestaurants", getRestaurants, (req, res) => {});
+router.post("/getRestaurant", getRestaurant, (req, res) => {});
 
 module.exports = router;

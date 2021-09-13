@@ -28,6 +28,8 @@ const addOrder = async (req, res, next) => {
     payment_method,
     paid,
     delivery_options,
+    transit,
+    cancelled,
   } = req.body;
 
   try {
@@ -48,14 +50,74 @@ const addOrder = async (req, res, next) => {
       payment_method,
       paid,
       delivery_options,
+      transit,
+      cancelled,
     });
 
-    const newy = await newOrder.save();
+    const order = await Order.find({
+      buyer_name,
+      food_name,
+    });
 
-    next();
+    if (order.length === 0) {
+      const neworder = await newOrder.save();
+      console.log(neworder);
+      return res.json(neworder);
+    } else {
+      const updatedOrder = await Order.findByIdAndUpdate(
+        order[0]._id,
+        {
+          food_amount,
+        },
+        { new: true }
+      );
+
+      return res.json(updatedOrder);
+    }
+  } catch (error) {
+    res.json(error);
+  }
+};
+const updateOrder = async (req, res, next) => {
+  const {
+    id,
+
+    request_utensils,
+    delivery_instructions,
+    sub_total,
+    service,
+    total,
+    order_delivered,
+    payment_method,
+
+    delivery_options,
+    transit,
+    cancelled,
+  } = req.body;
+
+  try {
+    const updatedOrder = await Order.findByIdAndUpdate(
+      id,
+      {
+        request_utensils,
+        delivery_instructions,
+        sub_total,
+        service,
+        total,
+        order_delivered,
+        payment_method,
+
+        delivery_options,
+        transit,
+        cancelled,
+      },
+      { new: true }
+    );
+
+    return res.json(updatedOrder);
   } catch (error) {
     res.json(error);
   }
 };
 
-module.exports = { allOrders, addOrder };
+module.exports = { allOrders, addOrder, updateOrder };

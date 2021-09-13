@@ -9,10 +9,13 @@ const newFood = async (req, res, next) => {
       restaurant_id,
       img_url,
     });
-    await newfood.save();
-    next();
+    const food = await newfood.save();
+
+    if (food) {
+      return res.json(food);
+    }
   } catch (error) {
-    res.json(error);
+    res.json("error");
   }
 };
 
@@ -20,9 +23,9 @@ const deleteFood = async (req, res, next) => {
   const { id } = req.body;
   try {
     await Food.findByIdAndDelete(id);
-    next();
+    return res.json("success");
   } catch (error) {
-    res.json(error);
+    console.log(error);
   }
 };
 
@@ -39,16 +42,15 @@ const getFood = async (req, res, next) => {
 };
 
 const updateFood = async (req, res, next) => {
-  const { name, price, id } = req.body;
+  const { name, price, id, img_url, desc } = req.body;
 
   try {
     const updatedFood = await Food.findByIdAndUpdate(
       id,
-      { name, price },
+      { name, price, img_url },
       { new: true }
     );
-    res.json("update successful");
-    next();
+    return res.json(updateFood);
   } catch (error) {}
 };
 
