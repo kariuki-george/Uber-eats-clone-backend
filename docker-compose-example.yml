@@ -1,0 +1,31 @@
+version: "3"
+services:
+  uber-eats: 
+    build:       
+      dockerfile: ./Dockerfile
+      context: .
+    container_name: uber-eats
+    ports: 
+      - 4444:4444
+    environment:
+      - PORT=4444
+      - MONGO_URI=
+    restart: unless-stopped
+    networks:
+      - traefik
+      - mongodb
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.uber-eats.rule=Host(`uber-eats.p.kariukigeorge.me`)
+      - traefik.http.routers.uber-eats.tls=true
+      - traefik.http.routers.uber-eats.tls.certresolver=lets-encrypt
+      - traefik.port=4444
+
+
+
+    
+networks:
+  traefik:
+    external: true
+  mongodb:
+    external: true
