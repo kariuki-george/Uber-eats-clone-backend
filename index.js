@@ -11,18 +11,17 @@ app.use(express.json());
 app.use(cors());
 dotenv.config();
 
-mongoose.connect(
-  process.env.MONGO_URI,
-  {
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-    useNewUrlParser: true,
-    useFindAndModify: true,
-  },
-  () => {
-    console.log("connected to db");
-  }
-);
+try {
+  (async () => {
+    await mongoose.connect(process.env.MONGO_URI, {
+      useUnifiedTopology: true,
+
+      useNewUrlParser: true,
+    });
+  })();
+} catch (error) {
+  console.log(error);
+}
 
 //routing to respective dept
 app.use("/api/v1/restaurant", restaurantRoute);

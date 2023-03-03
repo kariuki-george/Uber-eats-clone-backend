@@ -6,7 +6,7 @@ const getRestaurants = async (req, res, next) => {
 
     return res.json(restaurants);
   } catch (error) {
-    res.json("Error");
+    res.json(error);
   }
 };
 
@@ -16,7 +16,7 @@ const getRestaurant = async (req, res, next) => {
 
     return res.json(restaurant);
   } catch (error) {
-    res.json("Error");
+    res.json("Errorr");
   }
 };
 
